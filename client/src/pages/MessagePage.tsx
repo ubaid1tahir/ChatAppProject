@@ -1,18 +1,20 @@
-import { signOut } from "firebase/auth";
-import { auth } from "../services/firebase-config";
 
-const MessagePage = () => {
-    const handleLogout = async () => {
-        await signOut(auth);
-        alert("You have been logged out.");
-    };
-
+interface MessagePageProps{
+    sidebar: React.ReactNode;
+    chatWindow: React.ReactNode;
+}
+const MessagePage : React.FC<MessagePageProps> = ({sidebar, chatWindow}) => {
     return (
-        <div>
-            <h2>Welcome to the Message Page</h2>
-            <p>This page is only accessible to logged-in users.</p>
-            <button onClick={handleLogout}>Logout</button>
-        </div>
+        <>
+            {/* Main Content */}
+            <div className="flex flex-1 overflow-hidden rounded-md">
+                {/* Sidebar */}
+                <div className="w-64 bg-gray-100 border-r overflow-y-auto">{sidebar}</div>
+
+                {/* Chat Window */}
+                <div className="flex-1 bg-white">{chatWindow}</div>
+            </div>
+        </>
     );
 };
 

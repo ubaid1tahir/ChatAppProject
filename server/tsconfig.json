@@ -1,0 +1,14 @@
+{
+    "compilerOptions": {
+        "target": "ES2020", // Or a compatible version
+        "module": "CommonJS", // Use CommonJS for Node.js
+        "strict": true,
+        "esModuleInterop": true, // Enable ES module interoperability
+        "moduleResolution": "node",
+        "resolveJsonModule": true,
+        "outDir": "./dist", // Output directory for compiled files
+        "types": [
+            "node"
+        ] // Include Node.js type definitions
+    }
+}

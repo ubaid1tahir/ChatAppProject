@@ -3,6 +3,7 @@ import http from 'http';
 import { Server } from 'socket.io';
 import cors from 'cors';
 import dotenv from 'dotenv';
+import { dbConnecton } from '../db/connection';
 
 // Load environment variables
 dotenv.config();
@@ -17,6 +18,7 @@ app.use(express.json());
 
 // Create an HTTP server
 const server = http.createServer(app);
+dbConnecton();
 
 // Initialize Socket.IO
 const io = new Server(server, {
@@ -31,8 +33,8 @@ io.on('connection', (socket) => {
     console.log(`User connected: ${socket.id}`);
 
     socket.on('send_message', (data) => {
-        console.log('Message received:', data);
-        io.emit('receive_message', data);
+        console.log('Message received:', data.message);
+        io.emit('receive_message', data.message);
     });
 
     socket.on('disconnect', () => {

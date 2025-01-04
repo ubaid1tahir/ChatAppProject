@@ -8,16 +8,21 @@ import Layout from './layout/Layout'
 import Sidebar from './components/Sidebar'
 import ChatWindow from './components/ChatWindow'
 import Header from './components/Header'
+import { useMemo } from 'react'
+import { io } from 'socket.io-client'
+import SocketContext from './contexts/SocketContext'
 
 function App() {
+  const value = useMemo(() => io('http://localhost:3000'), [])
   return (
     <>
       <div>
+      <SocketContext.Provider value={value}>
         <Layout
           header={<Header />}
         />
         <Routes>
-          <Route path='/login' element={<Login />} />
+          <Route path='/' element={<Login />} />
           <Route path='/register' element={<Signup />} />
           <Route
             path="/messages"
@@ -28,6 +33,8 @@ function App() {
             }
           />
         </Routes>
+      </SocketContext.Provider>
+        
 
       </div>
     </>

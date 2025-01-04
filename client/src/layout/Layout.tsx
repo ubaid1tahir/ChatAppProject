@@ -1,12 +1,14 @@
 import { signOut } from "firebase/auth";
 import { auth } from "../services/firebase-config";
 import React from "react";
+import { useAuthState } from "react-firebase-hooks/auth";
 
 interface LayoutProps {
     header?: React.ReactNode;
 }
 
 const Layout: React.FC<LayoutProps> = ({ header }) => {
+    const [user] = useAuthState(auth);
     const handleLogout = async () => {
         await signOut(auth);
         alert("You have been logged out.");
@@ -20,12 +22,12 @@ const Layout: React.FC<LayoutProps> = ({ header }) => {
             )}
 
             {/* Logout Button */}
-            <button
+            {user && <button
                 onClick={handleLogout}
                 className="bg-white text-indigo-600 px-4 py-2 rounded-md hover:bg-gray-100 transition"
             >
                 Logout
-            </button>
+            </button>}
         </div>
     );
 };
